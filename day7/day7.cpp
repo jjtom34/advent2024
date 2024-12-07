@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <deque>
+#include <sstream>
 
 using namespace std;
 
@@ -11,15 +12,21 @@ using namespace std;
 
 bool recursive_calc(deque<long>* nums, long current, long target){
     deque<long> copy = (*nums);
-    if(copy.size() == 1){
-        if(current + copy.back() == target || current * copy.back() == target){
+    long next_num = copy.front();
+    copy.pop_front();
+    // For concat 
+    stringstream stream;
+    stream << next_num;
+    stringstream stream2;
+    stream2 << current;
+    long concat = stol(stream2.str()+stream.str());
+    if(copy.size() == 0){
+        if(current + copy.back() == target || current * copy.back() == target || concat == target){
             return true;
         }
         return false;
     }
-    long next_num = copy.front();
-    copy.pop_front();
-    return(recursive_calc(&copy,current*next_num,target)||recursive_calc(&copy,current+next_num,target));
+    return(recursive_calc(&copy,current*next_num,target)||recursive_calc(&copy,current+next_num,target)||recursive_calc(&copy,concat,target));
 }
 
 int main(){
