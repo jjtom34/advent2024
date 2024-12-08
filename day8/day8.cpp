@@ -81,7 +81,3 @@ int main(){
     }
     cout << antinodes.size() << endl;
 }
-
-// 11
-// 22
-// 
