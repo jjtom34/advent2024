@@ -9,7 +9,7 @@ using namespace std;
 
 int main(){
     ifstream input_file;
-    input_file.open("input.txt");
+    input_file.open("simple2.txt");
     string line;
     //Create the big string???/Vector??
     vector<int> big_man;
