@@ -38,13 +38,13 @@ int solve_maze(vector<char> * map,int size){
                 }
             }
         }
-        for(int i = 0; i < map->size();++i){
-            cout << map->at(i);
-            if((i+1)%(size) == 0){
-                cout << endl;
-            }
-        }
-        cout << endl;
+        // for(int i = 0; i < map->size();++i){
+        //     cout << map->at(i);
+        //     if((i+1)%(size) == 0){
+        //         cout << endl;
+        //     }
+        // }
+        // cout << endl;
 
         
     }
@@ -62,25 +62,17 @@ int main(){
     int width = 7;
     vector<char> simple_map(length*width,'.');
     int bytes_fell = 0;
-    while ((getline(simple_file,line)) && bytes_fell < 12)
+    while ((getline(simple_file,line)))
     {
         int comma = line.find(",");
         int col = stoi(line.substr(0,comma));
         int row = stoi(line.substr(comma+1,line.length()-comma));
         simple_map[width*row + col] = '#';
-        bytes_fell += 1;
-    }
-    for(int i = 0; i < simple_map.size();++i){
-            cout << simple_map.at(i);
-            if((i+1)%(length) == 0){
-                cout << endl;
-            }
+        if(solve_maze(&simple_map,length) == -1){
+            cout << col << "|" << row << endl;
+            break;
         }
-    if(solve_maze(&simple_map,length) != 22){
-        cout << "Failed Example 1" << endl;
-        return 1;
     }
-
     // Input Test
     ifstream input_file;
     input_file.open("input.txt");
@@ -88,19 +80,16 @@ int main(){
     width = 71;
     vector<char> input_map(length*width,'.');
     bytes_fell = 0;
-    while ((getline(input_file,line)) && bytes_fell < 1024)
+    while ((getline(input_file,line)))
     {
         int comma = line.find(",");
         int col = stoi(line.substr(0,comma));
         int row = stoi(line.substr(comma+1,line.length()-comma));
         input_map[width*row + col] = '#';
         bytes_fell += 1;
-    }
-    for(int i = 0; i < input_map.size();++i){
-            cout << input_map.at(i);
-            if((i+1)%(length) == 0){
-                cout << endl;
-            }
+        if(bytes_fell >1024 && solve_maze(&input_map,length) == -1){
+            cout << col << "|" << row << endl;
+            break;
         }
-    cout << solve_maze(&input_map,length) << endl;
+    }
 }
