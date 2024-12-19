@@ -9,7 +9,7 @@
 
 using namespace std;
 
-int get_combo(int pc, vector<int>*program, int* a, int* b, int* c){
+long get_combo(long pc, vector<int>*program, long* a, long* b, long* c){
     if(pc<program->size()-1){
         switch(program->at(pc+1)){
             case 0:
@@ -28,15 +28,15 @@ int get_combo(int pc, vector<int>*program, int* a, int* b, int* c){
     return -1;
 }
 
-int get_literal(int pc, vector<int>*program){
+long get_literal(long pc, vector<int>*program){
     return program->at(pc+1);
 }
 
-string run_program(vector<int>*program, int* a, int* b, int* c){
-    int pc = 0;
+string run_program(vector<int>*program, long* a, long* b, long* c){
+    long pc = 0;
     string result = "";
     bool jump = false;
-    int combo;
+    long combo;
     while(pc < program->size()){
         int op_code = program->at(pc);
         switch(op_code){
@@ -85,13 +85,13 @@ string run_program(vector<int>*program, int* a, int* b, int* c){
     return result;
 }
 
-void read_input(string file,vector<int>* program, int* reg_a, int* reg_b, int* reg_c){
+void read_input(string file,vector<int>* program, long* reg_a, long* reg_b, long* reg_c){
     ifstream input_file;
     input_file.open(file);
     string line;
     getline(input_file,line);
-    int colon = line.find(':');
-    *reg_a = stoi(line.substr(colon + 2,line.length()-colon-1));
+    long colon = line.find(':');
+    *reg_a = stol(line.substr(colon + 2,line.length()-colon-1));
     getline(input_file,line);
     *reg_b = stoi(line.substr(colon + 2,line.length()-colon-1));
     getline(input_file,line);
@@ -109,7 +109,8 @@ void read_input(string file,vector<int>* program, int* reg_a, int* reg_b, int* r
 
 int main(){
     vector<int> simple_program;
-    int reg_a,reg_b,reg_c;
+    long reg_b,reg_c;
+    long reg_a;
     cout << "Example 1" << endl;
     read_input("simple.txt",&simple_program,&reg_a,&reg_b,&reg_c);
     
